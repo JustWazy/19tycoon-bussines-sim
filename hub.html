@@ -4,7 +4,7 @@
 <div id="mpb"><img class="ban" src="thumb/main_page.jpg" data-n="0" data-id="main_page" alt="" onerror="tf(this)"></div>
 <div id="mn"></div>
 </div>
-<div id="ov"><div><h2 id="ot"></h2><p id="om"></p><button class="b" onclick="localStorage.removeItem('t19');location.href='menu.html'">Main Lagi</button></div></div>
+<div id="ov"><div><h2 id="ot"></h2><p id="om"></p><button id="ovc" class="b" style="display:none;background:var(--a);border-color:var(--a);color:#fff" onclick="$('ov').style.display='none'">Lanjutkan</button><button class="b" onclick="localStorage.removeItem('t19');location.href='menu.html'">Main Baru</button></div></div>
 <script src="core.js"></script>
 <script>
 function ren(){paintStats();$('mn').innerHTML=hubGrid();sv()}

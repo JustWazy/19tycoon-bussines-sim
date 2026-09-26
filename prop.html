@@ -4,7 +4,7 @@
 <div id="pbn"><img class="ban" src="thumb/panel_prop.jpg" data-n="0" data-id="panel_prop" alt="" onerror="tf(this)"></div>
 <div id="pm"></div>
 </div>
-<div id="ov"><div><h2 id="ot"></h2><p id="om"></p><button class="b" onclick="localStorage.removeItem('t19');location.href='menu.html'">Main Lagi</button></div></div>
+<div id="ov"><div><h2 id="ot"></h2><p id="om"></p><button class="b" id="ovc" style="display:none;background:var(--t);color:var(--bg);border-color:var(--t)" onclick="$('ov').style.display='none'">Lanjut Bermain</button><button class="b" onclick="localStorage.removeItem('t19');location.href='menu.html'">Main Baru</button></div></div>
 <script src="core.js"></script>
 <script>
 function ren(){if($('ph'))$('ph').textContent=R(S.cash)+' · '+S.hrs+' jam';$('pm').innerHTML=V.prop();sv()}
