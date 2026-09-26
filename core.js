@@ -1,4 +1,5 @@
 
+(function(){var l=document.createElement('link');l.rel='icon';l.type='image/svg+xml';l.href='favicon.svg';document.head.appendChild(l)})();
 const $=i=>document.getElementById(i),cl=(v,a=0,b=100)=>Math.max(a,Math.min(b,v)),rn=(a,b)=>a+Math.random()*(b-a),pk=a=>a[Math.random()*a.length|0];
 const R=n=>{n=Math.round(n);const a=Math.abs(n);return(n<0?'-':'')+'Rp '+(a>=1e12?(a/1e12).toFixed(2)+' T':a>=1e9?(a/1e9).toFixed(2)+' M':a>=1e6?(a/1e6).toFixed(2)+' jt':a.toLocaleString('id-ID'))};
 const DN=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
