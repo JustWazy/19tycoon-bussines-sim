@@ -17,6 +17,7 @@ Banner di atas grid menu. Saran landscape mis. 1440x360 px (tinggi maks 180 px).
 == Panel game (game.html) -> folder thumb/ ==
 Banner di dalam panel setelah dibuka. Saran landscape mis. 1440x300 px
 (dipotong tengah, tinggi maks 150 px). Ikon SVG di grid menu tidak berubah.
+  thumb/panel_portfolio.jpg  Portofolio
   thumb/panel_news.jpg    Berita
   thumb/panel_exp.jpg     Pengeluaran
   thumb/panel_skills.jpg  Skill
