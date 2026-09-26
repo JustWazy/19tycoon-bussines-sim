@@ -90,3 +90,7 @@ body{padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
 .pcard h3{margin:0;font:900 16px var(--d);letter-spacing:.03em;text-transform:uppercase}
 
 .ipt{padding:5px 6px;background:var(--bg);color:var(--t);border:1px solid var(--t);font:12px var(--mo);width:100%;max-width:260px}
+
+.gc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease}
+.gc-body.open{grid-template-rows:1fr}
+.gc-inner{overflow:hidden;min-height:0}
