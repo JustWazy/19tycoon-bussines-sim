@@ -1,0 +1,12 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Tycoon 19 - Sasaran</title>
+<link rel="stylesheet" href="style.css"></head><body><div class="w">
+<div id="pb"><button class="b" onclick="location.href='hub.html'">← Menu</button><b id="pt">Sasaran</b><span id="ph" class="m"></span><button class="b" onclick="nxt(1)">+1 hari</button></div>
+<div id="pbn"><img class="ban" src="thumb/panel_goal.jpg" data-n="0" data-id="panel_goal" alt="" onerror="tf(this)"></div>
+<div id="pm"></div>
+</div>
+<div id="ov"><div><h2 id="ot"></h2><p id="om"></p><button class="b" onclick="localStorage.removeItem('t19');location.href='menu.html'">Main Lagi</button></div></div>
+<script src="core.js"></script>
+<script>
+function ren(){if($('ph'))$('ph').textContent=R(S.cash)+' · '+S.hrs+' jam';$('pm').innerHTML=V.goal();sv()}
+ren();
+</script></body></html>

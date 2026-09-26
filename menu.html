@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Tycoon 19</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e9e7e0;--t:#15150f;--m:#6b695f;--l:#c4c1b4;--a:#d1271b;--d:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;--mo:'IBM Plex Mono',ui-monospace,Menlo,monospace;box-sizing:border-box}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#111110;--t:#ebe9e0;--m:#8e8c82;--l:#33322d;--a:#ff4a3d}}
+:root[data-theme=dark]{--bg:#111110;--t:#ebe9e0;--m:#8e8c82;--l:#33322d;--a:#ff4a3d}
+*{box-sizing:border-box;border-radius:0!important}html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--t);font:14px/1.5 'IBM Plex Sans',Helvetica,Arial,sans-serif;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.w{max-width:1000px;margin:auto;min-height:100vh;padding:28px 20px;display:grid;grid-template-columns:1fr;gap:32px;align-content:center}
+@media(min-width:800px){.w{grid-template-columns:5fr 4fr;gap:60px;align-items:end}}
+h1{font:900 clamp(72px,17vw,170px)/.82 var(--d);letter-spacing:.01em;margin:0;text-transform:uppercase}h1 span{color:var(--a)}
+.tag{max-width:34ch;margin:18px 0 0;color:var(--m)}
+.go,.mn{display:block;width:100%;text-align:left;cursor:pointer;font:900 26px/1 var(--d);letter-spacing:.06em;text-transform:uppercase;padding:16px 14px;margin:0 0 8px;color:var(--t);background:none;border:1px solid var(--t)}
+.go{background:var(--a);border-color:var(--a);color:#fff;font-size:34px}.go small{display:block;font:400 11px var(--mo);letter-spacing:0;text-transform:none;margin-top:6px;opacity:.9}
+.mn:hover{background:var(--t);color:var(--bg)}
+h2{font:900 22px var(--d);letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px;border-top:4px solid var(--t);padding-top:8px}
+.m{color:var(--m);font-size:12px;margin:0 0 10px}
+.bgr{display:flex;gap:12px;align-items:center;width:100%;text-align:left;cursor:pointer;background:none;color:var(--t);border:0;border-top:1px solid var(--l);padding:10px 0 10px 12px;border-left:4px solid transparent;font:inherit}
+.bgr b{font:900 19px var(--d);letter-spacing:.05em;text-transform:uppercase;display:block}.bgr span{font-size:12px;color:var(--m)}
+.th{width:64px;height:64px;object-fit:cover;flex:none;background:var(--l)}
+.bgr.on{border-left-color:var(--a)}.bgr.on span{color:var(--t)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--l);flex-wrap:wrap}
+.sg button{background:none;color:var(--t);border:1px solid var(--t);padding:5px 10px;margin-left:-1px;font:12px var(--mo);cursor:pointer}.sg button.on{background:var(--t);color:var(--bg)}
+.warn{font:12px var(--mo);color:var(--a);margin:0 0 10px}
+.swg{display:flex;flex-wrap:wrap;gap:8px}.sw{width:78px;background:none;border:0;padding:0;cursor:pointer;color:var(--t);font:11px var(--mo);text-align:left}.sw i{display:block;height:38px;border:1px solid var(--t);font:900 18px/36px var(--d);text-align:center;font-style:normal;margin-bottom:4px}.sw.on i{outline:3px solid var(--a);outline-offset:1px}
+
+:root[data-theme=navy]{--bg:#0e1a2b;--c:#0e1a2b;--t:#e6edf7;--m:#8fa3bd;--l:#25364d;--a:#ff5a4d;--up:#4ade80}
+:root[data-theme=forest]{--bg:#0f1c17;--c:#0f1c17;--t:#e4efe6;--m:#8aa596;--l:#25382e;--a:#ff6b4a;--up:#7be495}
+:root[data-theme=sand]{--bg:#f1e6d0;--c:#f1e6d0;--t:#2a2118;--m:#7a6a55;--l:#d6c6a8;--a:#b8281c;--up:#2e7d32}
+:root[data-theme=graphite]{--bg:#26282c;--c:#26282c;--t:#e8e8e6;--m:#9a9c9f;--l:#3d4045;--a:#ff5348;--up:#5ee08a}
+:root[data-theme=sky]{--bg:#e3ebf3;--c:#e3ebf3;--t:#12202f;--m:#5a6b7d;--l:#c3d0de;--a:#c8261c;--up:#1b7a4a}
+</style></head><body><div class="w">
+<div><h1>Tycoon<br><span>19</span></h1><p class="tag">Umur 19. Uang seadanya. Bangun sesuatu sebelum tabunganmu habis.</p></div>
+<div><div id="s-main"></div><div id="s-new" hidden></div><div id="s-opt" hidden></div></div>
+</div>
+<script>
+const $=i=>document.getElementById(i);
+const BG=[['pedagang','Anak Pedagang','Besar di toko keluarga. Modal Rp 8 jt, jaringan 10, skill Manajemen Bisnis Lv 1.'],['kampus','Lulusan Kampus','Modal Rp 3 jt. Keuangan, Komunikasi, dan Teknologi masing-masing Lv 1.'],['pejabat','Anak Pejabat','Kenalan banyak. Jaringan 25, popularitas 20, modal Rp 5 jt. Tanpa skill.'],['rantau','Anak Rantau','Modal cuma Rp 1 jt, tapi sehat (95) dan tidak gampang stres. Langsung kerja jadi pelayan kafe.'],['coder','Programmer Otodidak','Modal Rp 2 jt. Teknologi Lv 3, bisa langsung freelance dan melamar programmer.']];
+let pick='pedagang';
+const opt=()=>{try{return JSON.parse(localStorage.getItem('t19opt')||'{}')}catch(e){return{}}};
+const sv=()=>{try{const s=JSON.parse(localStorage.getItem('t19'));return s&&!s.over?s:null}catch(e){return null}};
+function ap(){const o=opt(),r=document.documentElement;if(o.th)r.dataset.theme=o.th;else delete r.dataset.theme;document.body.style.zoom=o.zm||1}
+function so(k,v){const o=opt();if(v==null)delete o[k];else o[k]=v;try{localStorage.setItem('t19opt',JSON.stringify(o))}catch(e){}ap();show('opt')}
+function show(id){['main','new','opt'].forEach(x=>$('s-'+x).hidden=x!=id);({main:rm,new:rb,opt:ro})[id]()}
+function rm(){const s=sv();$('s-main').innerHTML=`<button class="go" onclick="${s?"location.href='hub.html'":"show('new')"}">Mulai<small>${s?'Lanjutkan: hari '+s.d+', usia '+(19+(s.d/365|0))+' tahun':'Belum ada simpanan. Pilih latar belakang dulu.'}</small></button><button class="mn" onclick="show('new')">Game Baru</button><button class="mn" onclick="show('opt')">Opsi</button>`}
+function tf(e){const x=['jpg','jpeg','png','webp'],n=+e.dataset.n+1;if(n<x.length){e.dataset.n=n;e.src='thumb/starter_icon/'+e.dataset.id+'.'+x[n]}else e.remove()}
+function rb(){$('s-new').innerHTML='<h2>Latar Belakang</h2><p class="m">Menentukan modal dan kemampuan awalmu. Tidak ada yang paling benar.</p>'+BG.map(b=>`<button class="bgr ${b[0]==pick?'on':''}" onclick="pick='${b[0]}';rb()"><img class="th" src="thumb/starter_icon/${b[0]}.jpg" data-n="0" data-id="${b[0]}" alt="" onerror="tf(this)"><div><b>${b[1]}</b><span>${b[2]}</span></div></button>`).join('')+'<div style="height:14px"></div>'+(sv()?'<p class="warn">Simpanan lama akan dihapus.</p>':'')+'<button class="go" onclick="go()">Mulai Hidup Baru</button><button class="mn" onclick="show(\'main\')">← Kembali</button>'}
+function go(){try{localStorage.removeItem('t19');localStorage.setItem('t19new',pick)}catch(e){}location.href='hub.html'}
+const TM=[[null,'Otomatis','var(--bg)','var(--t)'],['light','Terang','#e9e7e0','#15150f'],['dark','Gelap','#111110','#ebe9e0'],['navy','Navy','#0e1a2b','#e6edf7'],['forest','Hutan','#0f1c17','#e4efe6'],['sand','Pasir','#f1e6d0','#2a2118'],['graphite','Grafit','#26282c','#e8e8e6'],['sky','Langit','#e3ebf3','#12202f']];
+const tsw=o=>TM.map(x=>`<button class="sw ${(o.th||null)==x[0]?'on':''}" onclick="so('th',${x[0]?`'${x[0]}'`:'null'})"><i style="background:${x[2]};color:${x[3]}">Aa</i>${x[1]}</button>`).join('');
+function ro(){const o=opt(),sg=(k,a)=>`<span class="sg">${a.map(x=>`<button class="${(o[k]||null)==x[0]?'on':''}" onclick="so('${k}',${x[0]===null?'null':JSON.stringify(x[0])})">${x[1]}</button>`).join('')}</span>`;
+$('s-opt').innerHTML='<h2>Opsi</h2>'+`<div class="row" style="display:block"><div style="margin-bottom:8px">Tema</div><div class="swg">${tsw(o)}</div></div><div class="row"><span>Ukuran tampilan</span>${sg('zm',[[.9,'Kecil'],[null,'Normal'],[1.15,'Besar']])}</div><div class="row"><span>Simpanan game</span><button class="sg" style="all:unset"></button><span class="sg"><button onclick="try{localStorage.removeItem('t19')}catch(e){}ro()">Hapus simpanan</button></span></div><div style="height:14px"></div><button class="mn" onclick="show('main')">← Kembali</button>`}
+ap();show('main');
+</script></body></html>
