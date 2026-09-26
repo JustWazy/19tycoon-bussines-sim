@@ -26,7 +26,6 @@ h3{margin:0 0 6px;font:900 17px var(--d);letter-spacing:.05em;text-transform:upp
 #foot button{border:0;padding:0 18px;font:900 22px var(--d);letter-spacing:.06em;color:#fff;background:var(--a);cursor:pointer;min-height:54px;flex:0 1 460px}
 #foot button.x{background:none;color:var(--t);border:1px solid var(--t);font:400 12px var(--mo);flex:0 0 auto;min-height:0}
 select{padding:4px;background:var(--bg);color:var(--t);border:1px solid var(--t);font:12px var(--mo)}
-.ipt{padding:5px 6px;background:var(--bg);color:var(--t);border:1px solid var(--t);font:12px var(--mo);width:100%;max-width:260px}
 #ov{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;z-index:9;padding:20px}#ov div{background:var(--bg);padding:28px;max-width:380px;border-top:4px solid var(--a)}#ov h2{font:900 32px var(--d);margin:0 0 8px}
 @media(max-width:760px){.w{display:block;padding:10px}#tabs{flex-direction:row;overflow-x:auto;position:static;margin-bottom:14px;border-bottom:1px solid var(--l)}#tabs button{white-space:nowrap;border-left:0;border-bottom:3px solid transparent}#tabs button.on{border-bottom-color:var(--a)}#foot button.x{padding:0 10px}}
 .w{display:block;max-width:1040px}
@@ -89,3 +88,5 @@ body{padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
 .pcard img{display:block;width:100%;height:110px;object-fit:cover;background:var(--l)}
 .pcard .pb{padding:10px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
 .pcard h3{margin:0;font:900 16px var(--d);letter-spacing:.03em;text-transform:uppercase}
+
+.ipt{padding:5px 6px;background:var(--bg);color:var(--t);border:1px solid var(--t);font:12px var(--mo);width:100%;max-width:260px}
