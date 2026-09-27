@@ -1,0 +1,14 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Tycoon 19 - Kasino</title>
+<link rel="stylesheet" href="style.css"></head><body><div class="w">
+<div id="pb"><button class="b" onclick="location.href='hub.html'">← Menu</button><b id="pt">Kasino</b><span id="ph" class="m"></span><button class="b" onclick="nxt(1)">+1 hari</button></div>
+<div id="pbn"><img class="ban" id="pbnimg" src="thumb/casino/main_thumb.jpg" data-n="0" data-id="casino/main_thumb" alt="" onerror="tf(this)"></div>
+<div id="pm"></div>
+</div>
+<div id="ov"><div><h2 id="ot"></h2><p id="om"></p><button class="b" id="ovc" style="display:none;background:var(--t);color:var(--bg);border-color:var(--t)" onclick="$('ov').style.display='none'">Lanjut Bermain</button><button class="b" onclick="localStorage.removeItem('t19');location.href='menu.html'">Main Baru</button></div></div>
+<script src="core.js"></script>
+<script>
+function updateBanner(){const id=KV?('casino/'+KV):'casino/main_thumb';const img=$('pbnimg');if(img&&img.dataset.id!==id){img.dataset.id=id;img.dataset.n='0';img.src='thumb/'+id+'.jpg'}}
+function ren(){updateBanner();const gm=CG.find(x=>x.id==KV);if($('pt'))$('pt').textContent='Kasino'+(gm?(' · '+gm.name):'');if($('ph'))$('ph').textContent=R(S.cash)+' · '+S.hrs+' jam';$('pm').innerHTML=V.kasino();sv()}
+casinoOutfitCheck();
+ren();
+</script></body></html>

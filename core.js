@@ -23,13 +23,14 @@ const ST=[['Asisten Pribadi',120e3,'+2 jam waktu per hari'],['Akuntan',150e3,'Bi
 const OF=[['Ketua RT',20,10,2e6,20e3,0],['Anggota DPRD',40,30,50e6,150e3,0],['Wali Kota',60,50,500e6,400e3,1],['Gubernur',75,70,3e9,1e6,1],['Presiden',90,85,20e9,4e6,1]];
 const PT={dem:'Partai Demokrat',rep:'Partai Republik'},PTC={dem:'#3b82f6',rep:'#ef4444'},EL_CYC=240;
 const GL=[['Punya kekayaan Rp 100 jt',()=>nw()>=1e8],['Dirikan bisnis pertama',()=>S.bizs.length],['Kekayaan Rp 1 Miliar',()=>nw()>=1e9],['Punya properti',()=>S.props.length],['Punya obligasi / deposito',()=>S.bonds.length||S.dep>0],['Kepopuleran 70+',()=>S.pop>=70],['Melakukan IPO bisnis pertama',()=>S.bizs.some(b=>b.ipo)],['Membangun megaproyek negara',()=>S.megas.length>0],['Skill Manajemen Bisnis level 5',()=>S.sk.biz>=5],['Menjabat di politik',()=>S.office>0],['Punya bisnis skala Nasional',()=>S.bizs.some(b=>b.sc>=5)],['Kelola 3 bisnis sekaligus',()=>S.bizs.length>=3],[' SASARAN AKHIR: Kekayaan Rp 10 Miliar',()=>nw()>=1e10]];
-const T=[['portfolio','','Portofolio'],['news','','Berita'],['exp','','Pengeluaran'],['skills','','Skill'],['trade','','Trading'],['job','','Kerja'],['biz','','Bisnis'],['leis','','Waktu Luang'],['prop','','Properti'],['bond','','Obligasi'],['netw','','Jaringan'],['pop','⭐','Popularitas'],['goal','','Sasaran'],['pol','','Politik'],['staff','','Staf'],['bank','','Bank'],['lelang','','Pelelangan']];
+const T=[['portfolio','','Portofolio'],['news','','Berita'],['exp','','Pengeluaran'],['skills','','Skill'],['trade','','Trading'],['job','','Kerja'],['biz','','Bisnis'],['leis','','Waktu Luang'],['prop','','Properti'],['bond','','Obligasi'],['netw','','Jaringan'],['pop','⭐','Popularitas'],['goal','','Sasaran'],['pol','','Politik'],['staff','','Staf'],['bank','','Bank'],['lelang','','Pelelangan'],['kasino','🎲','Kasino']];
 const BT=[['Kafe & Kuliner',30e3,.42,1.2,'mkt',1],['Toko Ritel',40e3,.42,1.1,'biz',1.2],['Jasa Digital',60e3,.28,.7,'tech',1],['Manufaktur',150e3,.55,.6,'eng',2],['Agensi Kreatif',80e3,.35,.6,'des',1.3],['Ekspor-Impor',100e3,.5,.6,'lang',1.5],['Konsultan Hukum & Pajak',90e3,.3,.55,'law',1.1]],
 SC=[['Mikro',1,15e6,1],['Kecil',3.5,60e6,1],['Menengah',10,200e6,2],['Besar',28,600e6,2],['Sangat Besar',75,1.8e9,3],['Nasional',200,5e9,3],['Internasional',500,15e9,4]],NB={ty:0,sc:0,mg:'self',name:''},bcap=b=>SC[b.sc][2]*BT[b.ty][5];
 const BG={pedagang:{cash:8e6,net:10,sk:{biz:1}},kampus:{cash:3e6,sk:{fin:1,com:1,tech:1}},pejabat:{cash:5e6,net:25,pop:20},rantau:{cash:1e6,hp:95,str:10,job:0},coder:{cash:2e6,sk:{tech:3}}},BGN={pedagang:'Anak Pedagang',kampus:'Lulusan Kampus',pejabat:'Anak Pejabat',rantau:'Anak Rantau',coder:'Programmer Otodidak'};
-let S,tab=null,BV=null,BMK='local',TV=null,PV=null;
-function init(bg,nm){S={d:0,cash:5e6,hp:80,hap:60,str:20,pop:10,net:5,hrs:10,mg:0,sk:{biz:0,fin:0,com:0,tech:0},house:0,food:1,ins:0,job:null,bizs:[],bn:0,tr:1,it:1,en:0,lk:0,gm:0,dn:0,hold:{},px:{},pv:{},props:[],pi:1,bonds:[],dep:0,loan:0,staff:[],office:0,camp:null,tax:.1,eco:1,news:[],logs:[],fx:[],ex:{},inc:{},bl:null,won:0,over:0,m1b:0,auc:{items:[],nextId:1,hist:[]},collect:[],dia:0,diaGiven:0,party:null,trust:50,supD:50,ruling:pk(['dem','rep']),nextElection:200,elecHist:[]};AS.forEach(a=>S.px[a[0]]=a[3]);const b=BG[bg]||{};for(const k in b)k=='sk'?Object.assign(S.sk,b.sk):S[k]=b[k];if(S.job!=null)S.hrs-=6;S.bg=bg;S.uname=(nm||'').toString().trim().slice(0,30);S.logs=['Hari 0: Latar belakang: '+(BGN[bg]||'-')+(S.uname?' · '+S.uname:'')]}
+let S,tab=null,BV=null,BMK='local',TV=null,PV=null,KV=null;
+function init(bg,nm){S={d:0,cash:5e6,hp:80,hap:60,str:20,pop:10,net:5,hrs:10,mg:0,sk:{biz:0,fin:0,com:0,tech:0},house:0,food:1,ins:0,job:null,bizs:[],bn:0,tr:1,it:1,en:0,lk:0,gm:0,dn:0,hold:{},px:{},pv:{},props:[],pi:1,bonds:[],dep:0,loan:0,staff:[],office:0,camp:null,tax:.1,eco:1,news:[],logs:[],fx:[],ex:{},inc:{},bl:null,won:0,over:0,m1b:0,auc:{items:[],nextId:1,hist:[]},collect:[],dia:0,diaGiven:0,party:null,trust:50,supD:50,ruling:pk(['dem','rep']),nextElection:200,elecHist:[],gamble:{ws:0,ls:0,vws:0,vls:0,tw:0,twn:0,vip:0}};AS.forEach(a=>S.px[a[0]]=a[3]);const b=BG[bg]||{};for(const k in b)k=='sk'?Object.assign(S.sk,b.sk):S[k]=b[k];if(S.job!=null)S.hrs-=6;S.bg=bg;S.uname=(nm||'').toString().trim().slice(0,30);S.logs=['Hari 0: Latar belakang: '+(BGN[bg]||'-')+(S.uname?' · '+S.uname:'')]}
 try{const nb=localStorage.getItem('t19new');if(nb){localStorage.removeItem('t19new');let bgv=nb,nmv='';try{const o=JSON.parse(nb);if(o&&typeof o=='object'){bgv=o.bg;nmv=o.name||''}}catch(e){}init(bgv,nmv)}else S=JSON.parse(localStorage.getItem('t19'))}catch(e){}if(!S)init('kampus');for(const k in SKN)S.sk[k]=S.sk[k]||0;S.orders=S.orders||[];S.shorts=S.shorts||{};S.thist=S.thist||[];S.megas=S.megas||[];S.megaBuilds=S.megaBuilds||[];S.builds=S.builds||[];if(S.uname==null)S.uname='';if(S.m1b==null)S.m1b=0;if(S.biz&&!S.bizs){const o=S.biz;S.bizs=[{id:1,ty:1,name:'Usaha Lama',sc:Math.min(6,o.lv-1),mgmt:'self',price:o.price,qual:o.qual,mk:o.mkt>=4e5?2:o.mkt>=1e5?1:0,mg:0}];S.bn=1;delete S.biz}if(!S.bizs)S.bizs=[];if(S.tr==null)Object.assign(S,{tr:1,it:1,en:0,lk:0,gm:0,dn:0});if(!S.auc)S.auc={items:[],nextId:1,hist:[]};if(!S.collect)S.collect=[];if(S.dia==null)S.dia=0;if(S.diaGiven==null)S.diaGiven=0;
+if(!S.gamble)S.gamble={ws:0,ls:0,vws:0,vls:0,tw:0,twn:0,vip:0};
 if(S.party===undefined)S.party=null;if(S.trust==null||isNaN(S.trust))S.trust=50;if(S.supD==null||isNaN(S.supD))S.supD=50;if(!S.ruling)S.ruling=pk(['dem','rep']);if(S.nextElection==null)S.nextElection=S.d+200;if(!S.elecHist)S.elecHist=[];
 AS.forEach(a=>{if(S.px[a[0]]==null||isNaN(S.px[a[0]]))S.px[a[0]]=a[3];if(S.pv[a[0]]==null||isNaN(S.pv[a[0]]))S.pv[a[0]]=S.px[a[0]]});
 for(const k in S.hold){const h=S.hold[k];if(!h||isNaN(h.q)||isNaN(h.c))delete S.hold[k]}
@@ -43,7 +44,7 @@ const bigNews=(t,cat,up)=>{S.news.unshift({d:S.d,t,c:cat||'Sorotan',up:up!==fals
 const st=n=>S.staff.includes(n)?1:0,use=h=>S.hrs>=h?(S.hrs-=h,1):(log(' Waktu hari ini tidak cukup ('+h+' jam)'),0),pay=a=>S.cash>=a?(S.cash-=a,1):(log(' Uang tidak cukup'),0);
 function nw(){let v=S.cash+S.dep-S.loan;AS.forEach(a=>{const h=S.hold[a[0]];if(h)v+=h.q*S.px[a[0]]});S.props.forEach(i=>v+=PR[i][1]*S.pi);S.bonds.forEach(b=>v+=b.amt);S.bizs.forEach(b=>v+=bcap(b)*.6);return v}
 function bizDay(b){b.auto=b.auto||0;const t=BT[b.ty],m=SC[b.sc][1],pm={.8:1.3,1:1,1.25:.75,1.5:.55}[b.price],ef=b.mgmt=='ceo'?.95:(b.mg?1.15:.6),ev=b.evtMult||1;let c=(12+S.pop/4)*m*t[3]*(.6+.4*S.eco)*(.7+.3*b.qual)*pm*(1+S.sk.biz*.02)*(1+S.sk[t[4]]*.03)*(1+S.sk.mkt*.015)*(1+S.sk.des*.01)*[1,1.12,1.3][b.mk]*(1+.15*st('Manajer Pemasaran'))*(1+S.net/200)*ef*(1+b.auto*.06)*ev;c=Math.round(c*rn(.85,1.15)*(1-S.str/300));const rev=c*t[1]*b.price,vc=c*t[1]*(t[2]+.08*b.qual)*(1-Math.min(.4,S.sk.biz*.03+S.sk.eng*.02)-.1*st('Akuntan')-b.auto*.05),fx=6e4*m+[0,1e5,4e5][b.mk]*m**.8+(b.mgmt=='ceo'?12e4*m**.9:0)+b.auto*4e4*m,pr=rev-vc-fx;b.evtMult=1;return{c,rev,pr,tax:pr>0?pr*S.tax*(1-S.sk.law*.03):0}}
-function tick(){S.d++;const wd=S.d%7,wk=wd<5,ex={Sewa:H[S.house][1],Makan:F[S.food][1],Kesehatan:I[S.ins][1],Tagihan:15e3,Transportasi:TR[S.tr][1],Internet:IT[S.it][1],Hiburan:EN[S.en][1],Penampilan:LK[S.lk][1],Kebugaran:GM[S.gm][1],Staf:0,Pajak:0,Bunga:0,Donasi:0},inc={Gaji:0,Bisnis:0,'Sewa properti':0,'Bunga deposito':0,Kupon:0,Jabatan:0};
+function tick(){S.d++;const wd=S.d%7,wk=wd<5,ex={Sewa:H[S.house][1],Makan:F[S.food][1],Kesehatan:I[S.ins][1],Tagihan:15e3,Transportasi:TR[S.tr][1],Internet:IT[S.it][1],Hiburan:EN[S.en][1],Pakaian:LK[S.lk][1],Kebugaran:GM[S.gm][1],Staf:0,Pajak:0,Bunga:0,Donasi:0},inc={Gaji:0,Bisnis:0,'Sewa properti':0,'Bunga deposito':0,Kupon:0,Jabatan:0};
 S.staff.forEach(n=>ex.Staf+=ST.find(s=>s[0]==n)[1]);
 if(S.job!=null&&wk)inc.Gaji=JB[S.job][1]*(1-S.str/250)*(1+S.sk.com*.03+Object.entries(JB[S.job][2]).reduce((a,[k,v])=>a+Math.max(0,S.sk[k]-v)*.03,0));
 const BEV=[['Pesanan besar mendadak',1,.18],['Ulasan positif viral',1,.15],['Kolaborasi dengan brand lain',1,.12],['Pemasok telat kirim barang',-1,.15],['Mesin/peralatan rusak',-1,.12],['Karyawan pesaing membajak pelanggan',-1,.1],['Sertifikasi kualitas diperoleh',1,.08],['Keluhan pelanggan viral',-1,.08]];
@@ -207,16 +208,29 @@ css.textContent=`#evov{display:none;position:fixed;inset:0;background:rgba(0,0,0
 #evbx .evln{margin:6px 0;padding:8px 10px;font-size:13px;line-height:1.4;max-width:88%}
 #evbx .evln.them{background:var(--l,#f0f0f0)}
 #evbx .evln.me{background:var(--t,#111);color:var(--bg,#fff);margin-left:auto}
+#evbx .evln.win{background:none;color:var(--up,#1b8a4b);font-weight:600;text-align:center;max-width:100%;margin:14px 0;padding:8px 10px;border-top:1px solid var(--up,#1b8a4b);border-bottom:1px solid var(--up,#1b8a4b);letter-spacing:.02em;font-size:13px}
+#evbx .evln.lose{background:none;color:var(--a,#d1271b);font-weight:600;text-align:center;max-width:100%;margin:14px 0;padding:8px 10px;border-top:1px solid var(--a,#d1271b);border-bottom:1px solid var(--a,#d1271b);letter-spacing:.02em;font-size:13px}
 #evbx .evfx{margin-top:10px;font-size:12px;color:var(--m,#888)}
 #evbx button.b{margin-top:12px;width:100%}`;
 document.head.appendChild(css);
 const d=document.createElement('div');d.id='evov';
-d.innerHTML='<div id="evbx"><h4 id="evwho"></h4><div class="evrole" id="evrole"></div><div id="evbody"></div><div class="evfx" id="evfx"></div><button class="b" onclick="document.getElementById(\'evov\').classList.remove(\'show\')">Lanjut</button></div>';
+d.innerHTML='<div id="evbx"><h4 id="evwho"></h4><div class="evrole" id="evrole"></div><div id="evbody"></div><div class="evfx" id="evfx"></div><div id="evfoot"></div></div>';
 document.body.appendChild(d)})();
-function showEvent(who,role,lines,fx){const ov=document.getElementById('evov');if(!ov)return;
+let EV_OPTS=null;
+function evClose(){document.getElementById('evov').classList.remove('show');EV_OPTS=null}
+function evFoot(){const f=$('evfoot');if(!f)return;
+if(EV_OPTS&&EV_OPTS.length){f.innerHTML=EV_OPTS.map((o,i)=>`<button class="b" style="margin-top:8px;display:block;width:100%;text-align:left" onclick="evReply(${i})">${o.label}</button>`).join('')}
+else f.innerHTML='<button class="b" style="margin-top:12px" onclick="evClose()">Lanjut</button>'}
+function evReply(i){const o=EV_OPTS&&EV_OPTS[i];if(!o)return;const body=$('evbody');
+body.innerHTML+=`<div class="evln me">${o.label}</div>`;
+if(o.resp)body.innerHTML+=`<div class="evln them">${o.resp}</div>`;
+if(typeof o.effect=='function')o.effect();
+EV_OPTS=null;evFoot();sv()}
+function showEvent(who,role,lines,fx,opts){const ov=document.getElementById('evov');if(!ov)return;
 $('evwho').textContent=who;$('evrole').textContent=role;
-$('evbody').innerHTML=lines.map((l,i)=>`<div class="evln ${i%2==0?'them':'me'}">${l}</div>`).join('');
-$('evfx').textContent=fx||'';ov.classList.add('show')}
+let mi=0;
+$('evbody').innerHTML=lines.map(l=>{if(l&&typeof l=='object'){return `<div class="evln ${l.cls||'them'}">${l.text}</div>`}const cls=mi%2==0?'them':'me';mi++;return `<div class="evln ${cls}">${l}</div>`}).join('');
+$('evfx').textContent=fx||'';EV_OPTS=opts&&opts.length?opts:null;evFoot();ov.classList.add('show')}
 const EVN={colleague:['Rina','Dimas','Bayu','Sari','Andi'],official:['Pak Hendra','Bu Kepala Dinas','Pak Camat','Bu Anggota Dewan'],investor:['Bu Clarissa','Pak Wijaya','Mr. Tan','Bu Ratna'],friend:['Sari','Dimas','Rafi','Bayu'],mentor:['Pak Surya','Bu Diana','Prof. Budi'],fan:['Seorang penggemar','Netizen','Follower setia'],client:['Bu Wati','Pak Joko','Sdri. Melani','Pak Umar']},
 EVR={colleague:'Kolega',official:'Tokoh Penting',investor:'Investor',friend:'Teman',mentor:'Mentor',fan:'Penggemar',client:'Klien'};
 const EVD={
@@ -261,6 +275,70 @@ function listCollect(i,ask){const c=S.collect[i];if(!c)return;ask=Math.round(ask
 S.collect.splice(i,1);S.auc.items.push({id:S.auc.nextId++,cat:'sellcol',end:S.d+4,bidder:null,bidderName:'',myBid:0,hist:[],name:c.name,val:c.val,min:ask,cur:ask,mine:true});
 log('Melelang '+c.name+' dengan harga awal '+R(ask))}
 
+// --- Kasino ---
+const CG=[{id:'coin',name:'Lempar Koin',desc:'Tebak Angka atau Gambar, bayar 1.9x',img:'coin'},{id:'dice',name:'Dadu Besar/Kecil',desc:'Tebak jumlah tiga dadu, bayar 1.95x',img:'dice'},{id:'slot',name:'Slot Mesin',desc:'Cocokkan simbol, bayar hingga 20x',img:'slot'},{id:'vip',name:'Meja VIP',desc:'Adu angka lawan konglomerat, lawan berganti secara acak',img:'vip'}];
+const KNM=['Wijaya','Tirta','Sondang','Anton','Tan','Halim','Kusuma','Santoso','Wibowo','Gunawan','Salim','Hartono','Kwan','Lie','Suryanto','Prawira','Susanto','Tanoto','Hasan','Setiawan','Iskandar','Pranoto','Widjaja','Handoko'],
+KTL=['Om','Pak','Ibu','Koh','Mr.','Bu','Tuan','Nyonya','Datuk','Encik'],
+KRL=['Konglomerat Properti','Bandar Kawakan','Ratu Kasino','Taipan Judi','Investor Berjudi','Pengusaha Tambang','Bos Pelabuhan','Raja Otomotif','Ratu Mode','Taipan Perkapalan','Investor Kripto','Pemilik Kasino Rival','Nyonya Besar Perhotelan','Juragan Sawit','Bandar Properti','Pengusaha Tekstil','Raja Logistik'],
+KTMP=['santai','tegas','sinis','ramah','angkuh'];
+function newOpp(){return{name:pk(KTL)+' '+pk(KNM),role:pk(KRL),power:rn(.4,3.2),temper:pk(KTMP)}}
+function vipOpp(){if(!S.gamble.vipOpp)S.gamble.vipOpp=newOpp();return S.gamble.vipOpp}
+function vipNewOpponent(){S.gamble.vipOpp=newOpp();log(' Lawan baru duduk di Meja VIP: '+S.gamble.vipOpp.name+' ('+S.gamble.vipOpp.role+')')}
+function casinoOutfitCheck(){if(S.lk>0)return;if(S.outfitSindirDay===S.d)return;S.outfitSindirDay=S.d;
+const lines=[pk(['Maaf, apakah busana yang Anda kenakan memang ditujukan untuk kasino sekelas ini?','Penampilan Anda tampaknya kurang sesuai dengan standar yang berlaku di tempat ini.','Kami umumnya mengharapkan busana yang lebih pantas dari setiap tamu yang hadir di sini.'])];
+const opts=[
+{label:'Meminta maaf dan berjanji berpakaian lebih pantas lain kali',resp:pk(['Baik, kami mengerti. Selamat menikmati permainan Anda.','Terima kasih atas pengertiannya, silakan masuk.']),effect:()=>{S.hap=cl(S.hap-1)}},
+{label:'Menjawab bahwa penampilan bukan ukuran kemampuan seseorang',resp:pk(['Baiklah, mari kita buktikan di meja permainan.','Silakan, kami tunggu pembuktiannya.']),effect:()=>{S.pop=cl(S.pop-1);S.str=cl(S.str+1)}},
+{label:'Memilih untuk tidak menanggapi',resp:null,effect:()=>{S.str=cl(S.str+1)}}];
+showEvent('Petugas Kasino','Staf Penerima Tamu',lines,'Kategori pakaian saat ini: '+LK[S.lk][0],opts)}
+const SLOT_SYM=['🍒','🍋','🔔','⭐','💎','7️⃣'],SLOT_MULT={'🍒':5,'🍋':5,'🔔':8,'⭐':8,'💎':12,'7️⃣':20};
+function coinFlip(bet,pick){bet=Math.round(bet);if(bet<=0)return;if(!pay(bet))return;S.gamble.tw+=bet;const flip=Math.random()<.5?'H':'T',win=flip==pick;
+if(win){const w=Math.round(bet*1.9);S.cash+=w;S.gamble.twn+=w;S.gamble.ws++;S.gamble.ls=0;S.hap=cl(S.hap+2);log(' Lempar koin ('+(flip=='H'?'Angka':'Gambar')+'): menang '+R(w-bet));S.lastCoin={win:true,amt:w-bet,flip}}
+else{S.gamble.ws=0;S.gamble.ls++;S.str=cl(S.str+2);S.hap=cl(S.hap-1);log(' Lempar koin ('+(flip=='H'?'Angka':'Gambar')+'): kalah '+R(bet));S.lastCoin={win:false,amt:bet,flip}}}
+function diceBet(bet,pick){bet=Math.round(bet);if(bet<=0)return;if(!pay(bet))return;S.gamble.tw+=bet;const r=()=>1+(Math.random()*6|0),a=r(),b=r(),c=r(),sum=a+b+c,triple=(a==b&&b==c);
+const win=!triple&&((pick=='besar'&&sum>=11)||(pick=='kecil'&&sum<=10));
+if(win){const w=Math.round(bet*1.95);S.cash+=w;S.gamble.twn+=w;S.gamble.ws++;S.gamble.ls=0;S.hap=cl(S.hap+2);log(' Dadu ('+a+'-'+b+'-'+c+'): menang '+R(w-bet))}
+else{S.gamble.ws=0;S.gamble.ls++;S.str=cl(S.str+2);S.hap=cl(S.hap-1);log(' Dadu ('+a+'-'+b+'-'+c+'): kalah '+R(bet))}
+S.lastDice={dice:[a,b,c],win,triple}}
+function slotSpin(bet){bet=Math.round(bet);if(bet<=0)return;if(!pay(bet))return;S.gamble.tw+=bet;const sp=()=>pk(SLOT_SYM),r1=sp(),r2=sp(),r3=sp();let mult=0;
+if(r1==r2&&r2==r3)mult=SLOT_MULT[r1];else if(r1==r2||r2==r3||r1==r3)mult=1.5;
+if(mult>0){const w=Math.round(bet*mult);S.cash+=w;S.gamble.twn+=w;S.gamble.ws++;S.gamble.ls=0;S.hap=cl(S.hap+(mult>=8?5:2));log(' Slot '+r1+r2+r3+': menang '+R(w-bet))}
+else{S.gamble.ws=0;S.gamble.ls++;S.str=cl(S.str+2);log(' Slot '+r1+r2+r3+': kalah '+R(bet))}
+S.lastSlot={r:[r1,r2,r3],mult}}
+function vipOpts(mood){
+if(mood=='ejek')return[
+{label:'Menanggapi dengan tenang dan sopan',resp:pk(['Baik, saya menghargai pandangan Anda.','Terima kasih atas komentarnya, akan saya pertimbangkan.','Baiklah, saya akan lebih berhati-hati ke depannya.']),effect:()=>{S.str=cl(S.str-1);S.pop=cl(S.pop+.2)}},
+{label:'Membalas dengan percaya diri',resp:pk(['Menarik. Mari kita buktikan lewat permainan berikutnya.','Kita lihat saja siapa yang akan tertawa di akhir.','Saya rasa penilaian Anda agak terlalu dini.']),effect:()=>{S.hap=cl(S.hap+1);S.str=cl(S.str+1);S.net=cl(S.net+.2)}},
+{label:'Memilih untuk tidak menanggapi',resp:null,effect:()=>{}}];
+return[
+{label:'Menerima pujian dengan rendah hati',resp:pk(['Terima kasih, saya rasa masih banyak yang perlu saya pelajari.','Anda terlalu memuji, ini baru permulaan.']),effect:()=>{S.pop=cl(S.pop+.3)}},
+{label:'Menerima pujian dengan percaya diri',resp:pk(['Terima kasih, memang inilah keahlian saya.','Saya hargai pujiannya, dan ini baru awal.']),effect:()=>{S.hap=cl(S.hap+1);S.pop=cl(S.pop+.2)}},
+{label:'Menanggapi secara santai',resp:pk(['Ah, ini hanya keberuntungan semata.','Kebetulan saja keadaan sedang berpihak pada saya.']),effect:()=>{}}]}
+const V_EJEK=['Apakah ini benar jumlah taruhan yang Anda maksudkan? Rasanya kurang pantas disebut taruhan di meja ini.','Nominal sekecil ini agaknya lebih cocok untuk uang saku, bukan untuk meja permainan ini.','Sepertinya Anda salah menempatkan diri di meja VIP dengan taruhan seminim ini.','Saya kira taruhan sebesar ini belum sepadan dengan gengsi meja ini.','Untuk ukuran meja VIP, taruhan seperti ini terasa kurang meyakinkan.','Boleh saya tanya, apakah Anda yakin sudah berada di meja yang tepat?'],
+V_PUJI=['Taruhan sebesar ini menunjukkan keberanian yang patut diapresiasi.','Baiklah, taruhan tersebut saya terima. Semoga Anda tidak menyesalinya.','Barulah ini yang layak disebut sebagai permainan yang serius.','Saya mulai menaruh hormat pada keberanian Anda.','Nominal seperti ini baru pantas disebut taruhan sungguhan.','Menarik, sepertinya Anda memang datang untuk bermain sungguh-sungguh.'],
+V_NETRAL=['Baik, taruhan Anda saya terima.','Baiklah, mari kita mulai permainan ini.','Silakan, biarkan permainan ini yang menentukan.','Baik, mari kita lihat bagaimana hasilnya.','Taruhan diterima, semoga berjalan lancar.'],
+V_TEMPER={santai:['Santai saja, ini kan hanya permainan.','Tak perlu tegang, nikmati saja prosesnya.'],tegas:['Saya bicara apa adanya, mohon jangan tersinggung.','Begitulah pandangan saya, tegas dan terus terang.'],sinis:['Anggap saja itu celetukan orang yang sudah lama malang melintang di meja ini.','Itu sekadar pendapat pribadi saya sebagai bandar lama.'],ramah:['Jangan dimasukkan ke hati, saya hanya bergurau.','Yang penting kita tetap menikmati permainan ini bersama.'],angkuh:['Dan pendapat saya soal ini jarang keliru.','Begitulah cara pandang orang yang sudah kenyang pengalaman.']};
+function flavor(opp,p){return Math.random()<p?' '+pk(V_TEMPER[opp.temper]):''}
+function vipPlay(bet){bet=Math.round(bet);if(bet<=0)return;if(!pay(bet))return;const opp=vipOpp(),ref=Math.round(1.5e6*opp.power);S.gamble.tw+=bet;
+const ratio=bet/ref,win=Math.random()<.47,L=[];let mood='netral';
+if(ratio<.15){mood='ejek';L.push(pk(V_EJEK)+flavor(opp,.5))}
+else if(ratio>2){mood='puji';L.push(pk(V_PUJI)+flavor(opp,.5))}
+else L.push(pk(V_NETRAL)+flavor(opp,.3));
+L.push(pk(['Mari kita mulai.','Saya sudah siap.','Semoga kali ini Anda tidak meleset.','Silakan, giliran Anda menentukan.']));
+const w=Math.round(bet*1.9);
+L.push({cls:win?'win':'lose',text:(win?'Pihak Anda Menang · +':'Pihak Lawan Menang · -')+R(win?w-bet:bet)});
+if(win){S.cash+=w;S.gamble.twn+=w;S.gamble.vws++;S.gamble.vls=0;S.hap=cl(S.hap+3);S.net=cl(S.net+(ratio>1?1:.3));
+if(ratio>2||S.gamble.vws>=3){mood='puji';L.push(pk(['Kemenangan sebesar ini sungguh mengesankan. Keberanian Anda memang berbeda dari kebanyakan orang.','Kemenangan beruntun seperti ini membuat saya menduga Anda memang seorang ahli.','Saya jarang menjumpai orang yang berani sekaligus beruntung seperti Anda.','Sungguh permainan yang mengesankan, saya akui itu.'])+flavor(opp,.4))}
+else L.push(pk(['Kemenangan tipis, cukup baik untuk permulaan.','Baiklah, kali ini kemenangan menjadi milik Anda.','Lumayan, semoga bisa berlanjut.'])+flavor(opp,.2));
+log(' Meja VIP lawan '+opp.name+': menang '+R(w-bet))}
+else{S.gamble.vws=0;S.gamble.vls++;S.str=cl(S.str+4);S.hap=cl(S.hap-2);
+if(ratio<.15){mood='ejek';L.push(pk(['Untung nominal taruhan Anda kecil, jika tidak tentu akan terasa berat.','Kekalahan setipis ini tentu tidak berarti apa-apa bagi Anda.'])+flavor(opp,.3))}
+else if(S.gamble.vls>=3||ratio>1.5){mood='ejek';L.push(pk(['Kekalahan beruntun seperti ini sebaiknya menjadi peringatan bagi Anda untuk berhenti sejenak.','Taruhan besar namun kekalahan terus terjadi, sebaiknya Anda lebih berhati-hati.','Sungguh disayangkan uang Anda habis demikian. Ada baiknya Anda beristirahat sejenak.','Mungkin sudah saatnya Anda mempertimbangkan untuk berhenti sejenak.'])+flavor(opp,.4))}
+else L.push(pk(['Sayang sekali, Anda kalah. Silakan coba lagi apabila masih berkenan.','Bersabarlah, ini baru satu babak permainan.','Kekalahan yang wajar, jangan berkecil hati.'])+flavor(opp,.2));
+log(' Meja VIP lawan '+opp.name+': kalah '+R(bet))}
+if(Math.random()<.18)vipNewOpponent();
+showEvent(opp.name,opp.role,L,null,vipOpts(mood=='ejek'?'ejek':'puji'))}
+
 const V={
 portfolio(){const a=19+(S.d/365|0),dRem=Math.max(0,41*365-S.d),yRem=Math.floor(dRem/365),mRem=Math.floor((dRem%365)/30);
 const head=card('Profil Pemain',row('Nama',(S.uname?'<b>'+S.uname+'</b>':'<span class="m">(belum diisi)</span>')+' '+bt('✎ Ganti Nama','renameUser()'))
@@ -288,7 +366,7 @@ exp(){const l=(o,c)=>Object.entries(o).filter(([k,v])=>v>0||c=='p').map(([k,v])=
 const sel=(k,arr)=>`<select onchange="S.${k}=+this.value;ren()">${arr.map((x,i)=>`<option value="${i}" ${S[k]==i?'selected':''}>${x[0]} (${R(x[1])}/hari)</option>`).join('')}</select>`;
 const dn=`<select onchange="S.dn=+this.value;ren()">${DON.map((x,i)=>`<option value="${i}" ${S.dn==i?'selected':''}>${x[0]}</option>`).join('')}</select>`;
 const fix=H[S.house][1]+F[S.food][1]+I[S.ins][1]+TR[S.tr][1]+IT[S.it][1]+EN[S.en][1]+LK[S.lk][1]+GM[S.gm][1]+15e3;
-return card('Hunian & Kesehatan',row('Tempat tinggal',sel('house',H))+row('Makanan',sel('food',F))+row('Asuransi kesehatan',sel('ins',I))+'<div class="m">Kualitas tinggi menaikkan bahagia dan kesehatan, tapi biayanya naik.</div>')+card('Mobilitas',row('Transportasi',sel('tr',TR))+'<div class="m">Jalan kaki dan angkutan umum memakan 1 jam di hari kerja dan menambah stres. Ojek online dan mobil pribadi menghemat waktu.</div>')+card('Gaya Hidup',row('Internet & pulsa',sel('it',IT))+row('Hiburan',sel('en',EN))+row('Penampilan',sel('lk',LK))+row('Kebugaran',sel('gm',GM))+row('Donasi rutin',dn)+'<div class="m">Internet cepat menaikkan upah freelance. Penampilan dan donasi menambah popularitas pelan-pelan. Gym menurunkan stres.</div>')+card('Ringkasan Biaya',row('Biaya hidup tetap per hari',R(fix))+row('Perkiraan per bulan (30 hari)','<b>'+R(fix*30)+'</b>'))+card('Pengeluaran Hari Terakhir',l(S.ex,'n')+row('<b>Total</b>','<b>'+R(to)+'</b>'))+card('Pemasukan Hari Terakhir',l(S.inc,'p')+row('<b>Total</b>','<b>'+R(ti)+'</b>'))},
+return card('Hunian & Kesehatan',row('Tempat tinggal',sel('house',H))+row('Makanan',sel('food',F))+row('Asuransi kesehatan',sel('ins',I))+'<div class="m">Kualitas tinggi menaikkan bahagia dan kesehatan, tapi biayanya naik.</div>')+card('Mobilitas',row('Transportasi',sel('tr',TR))+'<div class="m">Jalan kaki dan angkutan umum memakan 1 jam di hari kerja dan menambah stres. Ojek online dan mobil pribadi menghemat waktu.</div>')+card('Gaya Hidup',row('Internet & pulsa',sel('it',IT))+row('Hiburan',sel('en',EN))+row('Pakaian',sel('lk',LK))+row('Kebugaran',sel('gm',GM))+row('Donasi rutin',dn)+'<div class="m">Internet cepat menaikkan upah freelance. Pakaian dan donasi menambah popularitas pelan-pelan. Gym menurunkan stres. Pakaian dengan biaya rendah (Seadanya) berisiko membuat Anda disindir apabila memasuki kasino.</div>')+card('Ringkasan Biaya',row('Biaya hidup tetap per hari',R(fix))+row('Perkiraan per bulan (30 hari)','<b>'+R(fix*30)+'</b>'))+card('Pengeluaran Hari Terakhir',l(S.ex,'n')+row('<b>Total</b>','<b>'+R(to)+'</b>'))+card('Pemasukan Hari Terakhir',l(S.inc,'p')+row('<b>Total</b>','<b>'+R(ti)+'</b>'))},
 skills(){return card('Kursus & Sertifikasi (3 jam, level maks 10)',Object.keys(SKN).map(k=>row(`<b>${SKN[k]}</b> Lv ${S.sk[k]}<div class="m">${SKD[k]}</div>`,bt('Ambil kursus '+R(3e5*(S.sk[k]+1)**1.5),`course('${k}')`,S.sk[k]>=10))).join(''))},
 trade(){const tv=AS.reduce((v,a)=>v+(S.hold[a[0]]?S.hold[a[0]].q*S.px[a[0]]:0),0),tc=AS.reduce((v,a)=>v+(S.hold[a[0]]?S.hold[a[0]].c:0),0);
 const chgs=AS.map(a=>({id:a[0],ch:(S.px[a[0]]/S.pv[a[0]]-1)*100||0})),best=chgs.reduce((x,y)=>y.ch>x.ch?y:x),worst=chgs.reduce((x,y)=>y.ch<x.ch?y:x),shTot=Object.values(S.shorts).reduce((a,h)=>a+h.val,0);
@@ -419,10 +497,39 @@ bt('Jual Cepat (instan)','sellCollect('+i+')')
 +pb(`customAmt(v=>listCollect(${i},v),'Harga awal lelang (Rp)')`)
 )).join('')+'<div class="m">Jual cepat langsung cair harga acak. Lelang butuh 4 hari, harga bisa naik kalau ada peminat, tapi kena komisi 5% dan bisa saja tidak laku.</div>'):'';
 const hist=S.auc.hist.length?card('Riwayat Lelang',S.auc.hist.slice(0,10).map(h=>row('Hari '+h.d+' · '+h.t,h.r)).join('')):'';
-return card('Balai Lelang','<div class="m">Barang koleksi, properti sitaan, blok saham, dan bisnis sitaan dilelang secara acak selama beberapa hari. Penawar lain bisa menaikkan tawaran kapan saja — pantau terus sebelum lelang ditutup. Dana Anda dikunci selama memimpin dan otomatis dikembalikan bila kalah. Anda juga bisa melelang barang koleksi milik Anda sendiri.</div>')+items+coll+hist}
+return card('Balai Lelang','<div class="m">Barang koleksi, properti sitaan, blok saham, dan bisnis sitaan dilelang secara acak selama beberapa hari. Penawar lain bisa menaikkan tawaran kapan saja — pantau terus sebelum lelang ditutup. Dana Anda dikunci selama memimpin dan otomatis dikembalikan bila kalah. Anda juga bisa melelang barang koleksi milik Anda sendiri.</div>')+items+coll+hist},
+kasino(){const g=S.gamble,bets=[50e3,200e3,1e6,5e6];
+const cimg=k=>`<img src="thumb/casino/${k}.jpg" data-n="0" data-id="casino/${k}" alt="" style="width:52px;height:52px;object-fit:cover;background:var(--l);flex:0 0 auto" onerror="tf(this)">`;
+const back='<div style="margin-bottom:10px">'+bt('← Kasino','KV=null')+'</div>';
+if(KV=='coin'){const lc=S.lastCoin?row('Hasil terakhir','Koin jatuh di <b>'+(S.lastCoin.flip=='H'?'Angka':'Gambar')+'</b> · '+(S.lastCoin.win?'<span class="up">Menang +'+R(S.lastCoin.amt)+'</span>':'<span class="dn">Kalah -'+R(S.lastCoin.amt)+'</span>')):'';
+return back+card('Lempar Koin · bayar 1.9x',lc
++row('Taruhan di Angka',bets.map(v=>bt(R(v),`coinFlip(${v},'H')`)).join('')+pb("customAmt(v=>coinFlip(v,'H'),'Taruhan Angka (Rp)')"))
++row('Taruhan di Gambar',bets.map(v=>bt(R(v),`coinFlip(${v},'T')`)).join('')+pb("customAmt(v=>coinFlip(v,'T'),'Taruhan Gambar (Rp)')")))}
+if(KV=='dice'){const ld=S.lastDice?row('Hasil terakhir','Dadu '+S.lastDice.dice.join('-')+(S.lastDice.triple?' (kembar tiga, bandar menang)':'')+' · '+(S.lastDice.win?'<span class="up">Menang</span>':'<span class="dn">Kalah</span>')):'';
+return back+card('Dadu Besar/Kecil · bayar 1.95x',ld
++row('Taruhan Besar (jumlah 11-18)',bets.map(v=>bt(R(v),`diceBet(${v},'besar')`)).join('')+pb("customAmt(v=>diceBet(v,'besar'),'Taruhan Besar (Rp)')"))
++row('Taruhan Kecil (jumlah 3-10)',bets.map(v=>bt(R(v),`diceBet(${v},'kecil')`)).join('')+pb("customAmt(v=>diceBet(v,'kecil'),'Taruhan Kecil (Rp)')"))
++'<div class="m">Tiga dadu dilempar bersamaan. Kembar tiga (mis. 4-4-4) selalu jadi kemenangan bandar.</div>')}
+if(KV=='slot'){const ls=S.lastSlot?row('Hasil terakhir',S.lastSlot.r.join(' ')+' · '+(S.lastSlot.mult?'<span class="up">Menang '+S.lastSlot.mult+'x</span>':'<span class="dn">Kalah</span>')):'';
+return back+card('Slot Mesin',ls
++row('Pasang taruhan',bets.map(v=>bt(R(v),`slotSpin(${v})`)).join('')+pb("customAmt(v=>slotSpin(v),'Taruhan Slot (Rp)')"))
++'<div class="m">Tiga simbol sama membayar besar (🍒/🍋 5x, 🔔/⭐ 8x, 💎 12x, 7️⃣ 20x). Dua simbol sama membayar 1.5x.</div>')}
+if(KV=='vip'){const opp=vipOpp(),ref=Math.round(1.5e6*opp.power);
+return back+card('Meja VIP · Adu Angka dengan Konglomerat',
+row('Sedang duduk dengan','<b>'+opp.name+'</b> <span class="m">('+opp.role+')</span>')
++row('Perkiraan taruhan khas lawan ini','<b>~'+R(ref)+'</b> <span class="m">(besar-kecil taruhan dinilai relatif terhadap angka ini)</span>')
++row('Tidak cocok dengan lawan ini?',bt('Cari Lawan Lain','vipNewOpponent()'))
++row('Pasang taruhan (bayar 1.9x)',bets.map(v=>bt(R(v),`vipPlay(${v})`)).join('')+pb("customAmt(v=>vipPlay(v),'Taruhan Meja VIP (Rp)')"))
++'<div class="m">Lawan main dipilih secara acak dari berbagai konglomerat dengan nama, watak, dan kekuatan taruhan yang berbeda-beda, dan bisa berganti sewaktu-waktu. Reaksinya—menyindir taruhan yang dianggap kecil atau memuji taruhan besar dan kemenangan beruntun—dinilai relatif terhadap taruhan khas lawan tersebut, bukan kekayaan Anda, dan disampaikan dengan bahasa yang baku namun luwas serta bervariasi. Setelah bertaruh, Anda dapat memilih cara membalasnya.</div>')}
+const stat=card('Kasino Kota',`<div class="g"><div class="s"><small>Total taruhan</small><b>${R(g.tw)}</b></div><div class="s"><small>Total kemenangan</small><b>${R(g.twn)}</b></div><div class="s"><small>Untung/rugi bersih</small><b class="${g.twn-g.tw>=0?'up':'dn'}">${R(g.twn-g.tw)}</b></div></div>`
++row('Streak biasa (Koin/Dadu/Slot)','<b>'+g.ws+'</b> menang beruntun · <b>'+g.ls+'</b> kalah beruntun')
++row('Streak Meja VIP','<b>'+g.vws+'</b> menang beruntun · <b>'+g.vls+'</b> kalah beruntun')
++'<div class="m">Semua taruhan dipotong langsung dari uang tunai Anda. Bandar selalu punya sedikit keunggulan matematis, dan kalah beruntun menambah stres.</div>');
+const menu=card('Pilih Permainan',CG.map(gm=>`<div class="r" style="cursor:pointer" onclick="KV='${gm.id}';ren()"><div style="display:flex;align-items:center;gap:10px">${cimg(gm.img)}<div><b>${gm.name}</b><div class="m">${gm.desc}</div></div></div><div>›</div></div>`).join(''));
+return stat+menu}
 };
-const MS={portfolio:()=>S.uname||'Lihat profil',news:()=>S.news[0]?S.news[0].t.slice(0,26):'kosong',exp:()=>R(Object.values(S.ex).reduce((a,b)=>a+b,0))+'/hari',skills:()=>'Total Lv '+Object.values(S.sk).reduce((a,b)=>a+b,0),trade:()=>R(AS.reduce((v,a)=>v+(S.hold[a[0]]?S.hold[a[0]].q*S.px[a[0]]:0),0)),job:()=>S.job!=null?JB[S.job][0]:'Menganggur',biz:()=>S.bizs.length+' bisnis',leis:()=>'Stres '+Math.round(S.str),prop:()=>S.props.length+' unit',bond:()=>S.bonds.length+' aktif',netw:()=>Math.round(S.net)+'/100'+(S.chat&&S.chat.pending?' · sedang bertemu':''),pop:()=>Math.round(S.pop)+'/100',goal:()=>GL.filter(g=>g[1]()).length+'/'+GL.length,pol:()=>(S.office?OF[S.office-1][0]:'Warga')+(S.party?' · '+PT[S.party]:''),staff:()=>S.staff.length+' orang',bank:()=>'Utang '+R(S.loan),lelang:()=>S.auc.items.length+' aktif'};
-const IC={"portfolio":"M12 3a4 4 0 100 8 4 4 0 000-8M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8","news": "M4 5h16v14H4zM8 9h5M8 13h8M8 16h8", "exp": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6", "skills": "M2 9l10-5 10 5-10 5zM6 11.5V16c0 1 3 2.5 6 2.5s6-1.5 6-2.5v-4.5", "trade": "M3 20h18M5 15l4-4 3 3 6-7M14 7h4v4", "job": "M3 8h18v11H3zM9 8V5h6v3M3 13h18", "biz": "M3 20V11l6 3.5V11l6 3.5V5h3v15zM3 20h18", "leis": "M12 8a4 4 0 100 8 4 4 0 000-8M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2", "prop": "M3 11l9-8 9 8M5 10v10h14V10M10 20v-6h4v6", "bond": "M4 4h16v13H4zM8 9h8M8 12h5M9 17v4l3-1.5 3 1.5v-4", "netw": "M12 4a2.5 2.5 0 100 5 2.5 2.5 0 000-5M5 15a2.5 2.5 0 100 5 2.5 2.5 0 000-5M19 15a2.5 2.5 0 100 5 2.5 2.5 0 000-5M11 9l-5 6M13 9l5 6M7.5 17.5h9", "pop": "M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z", "goal": "M12 3a9 9 0 100 18 9 9 0 000-18M12 8a4 4 0 100 8 4 4 0 000-8M12 11.5v1", "pol": "M3 9l9-5 9 5zM5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 20h18", "staff": "M9 11a3 3 0 100-6 3 3 0 000 6M3 20c0-3.5 2.5-6 6-6s6 2.5 6 6M16 6a3 3 0 010 6M18 14c2 .8 3 3 3 6", "bank": "M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 7v5c0 1.7 3.6 3 8 3s8-1.3 8-3V7M4 12v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5", "lelang": "M4 21h8M8 17l5-5M9 9l5-5 5 5-5 5zM17 4l3 3"};
+const MS={portfolio:()=>S.uname||'Lihat profil',news:()=>S.news[0]?S.news[0].t.slice(0,26):'kosong',exp:()=>R(Object.values(S.ex).reduce((a,b)=>a+b,0))+'/hari',skills:()=>'Total Lv '+Object.values(S.sk).reduce((a,b)=>a+b,0),trade:()=>R(AS.reduce((v,a)=>v+(S.hold[a[0]]?S.hold[a[0]].q*S.px[a[0]]:0),0)),job:()=>S.job!=null?JB[S.job][0]:'Menganggur',biz:()=>S.bizs.length+' bisnis',leis:()=>'Stres '+Math.round(S.str),prop:()=>S.props.length+' unit',bond:()=>S.bonds.length+' aktif',netw:()=>Math.round(S.net)+'/100'+(S.chat&&S.chat.pending?' · sedang bertemu':''),pop:()=>Math.round(S.pop)+'/100',goal:()=>GL.filter(g=>g[1]()).length+'/'+GL.length,pol:()=>(S.office?OF[S.office-1][0]:'Warga')+(S.party?' · '+PT[S.party]:''),staff:()=>S.staff.length+' orang',bank:()=>'Utang '+R(S.loan),lelang:()=>S.auc.items.length+' aktif',kasino:()=>S.gamble.tw?('Untung/rugi '+R(S.gamble.twn-S.gamble.tw)):'Coba peruntungan'};
+const IC={"portfolio":"M12 3a4 4 0 100 8 4 4 0 000-8M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8","news": "M4 5h16v14H4zM8 9h5M8 13h8M8 16h8", "exp": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6", "skills": "M2 9l10-5 10 5-10 5zM6 11.5V16c0 1 3 2.5 6 2.5s6-1.5 6-2.5v-4.5", "trade": "M3 20h18M5 15l4-4 3 3 6-7M14 7h4v4", "job": "M3 8h18v11H3zM9 8V5h6v3M3 13h18", "biz": "M3 20V11l6 3.5V11l6 3.5V5h3v15zM3 20h18", "leis": "M12 8a4 4 0 100 8 4 4 0 000-8M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2", "prop": "M3 11l9-8 9 8M5 10v10h14V10M10 20v-6h4v6", "bond": "M4 4h16v13H4zM8 9h8M8 12h5M9 17v4l3-1.5 3 1.5v-4", "netw": "M12 4a2.5 2.5 0 100 5 2.5 2.5 0 000-5M5 15a2.5 2.5 0 100 5 2.5 2.5 0 000-5M19 15a2.5 2.5 0 100 5 2.5 2.5 0 000-5M11 9l-5 6M13 9l5 6M7.5 17.5h9", "pop": "M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z", "goal": "M12 3a9 9 0 100 18 9 9 0 000-18M12 8a4 4 0 100 8 4 4 0 000-8M12 11.5v1", "pol": "M3 9l9-5 9 5zM5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 20h18", "staff": "M9 11a3 3 0 100-6 3 3 0 000 6M3 20c0-3.5 2.5-6 6-6s6 2.5 6 6M16 6a3 3 0 010 6M18 14c2 .8 3 3 3 6", "bank": "M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 7v5c0 1.7 3.6 3 8 3s8-1.3 8-3V7M4 12v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5", "lelang": "M4 21h8M8 17l5-5M9 9l5-5 5 5-5 5zM17 4l3 3", "kasino": "M12 2a10 10 0 100 20 10 10 0 000-20M12 2v20M2 12h20M7 7l1.2 1.2M16.8 15.8L18 17M17 7l-1.2 1.2M6 17l1.2-1.2"};
 const IA={USDIDR:'M12 3v18M8 7c0-1.5 1.5-2.5 4-2.5s4 1 4 2.5-1.5 2-4 2.5-4 1-4 2.5 1.5 2.5 4 2.5 4-1 4-2.5',EURIDR:'M14 5a7 7 0 100 14M6 10h9M6 14h7',SGDIDR:'M12 3v18M8 7c0-1.5 1.5-2.5 4-2.5s4 1 4 2.5-1.5 2-4 2.5-4 1-4 2.5 1.5 2.5 4 2.5 4-1 4-2.5',BRPT:'M4 21V9l8-6 8 6v12M9 21v-6h6v6',SOL:'M5 8h11l3-3H8zM5 16h11l3-3H8zM5 12h14',"BNUS": "M3 9l9-5 9 5zM5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 20h18", "TLKM": "M12 11v10M8 21h8M12 11l-4 10M12 11l4 10M8.5 7.5a5 5 0 017 0M6 5a8.5 8.5 0 0112 0", "GOTO": "M6 14a3 3 0 100 6 3 3 0 000-6M18 14a3 3 0 100 6 3 3 0 000-6M9 17h6l-2-6H9M13 11l2-3h3", "ANTM": "M4 9c4-5 12-5 16 0M12 6l1 14M10 20h5", "XAU": "M6 9h12l3 8H3zM9 9l-1.5 8M15 9l1.5 8", "OIL": "M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z", "KPI": "M5 8h11v6a5 5 0 01-5 5H10a5 5 0 01-5-5zM16 10h2a2 2 0 010 4h-2M8 3v2M11 3v2", "BTC": "M12 3a9 9 0 100 18 9 9 0 000-18M10 8v8M10 8h3a2 2 0 010 4h-3M10 12h3.5a2 2 0 010 4H10M11 6v2M13 6v2M11 16v2M13 16v2", "ETH": "M12 3l6 9-6 9-6-9zM6 12l6 3 6-3M12 3v12"};
 const sv_=(d,z,x)=>`<svg viewBox="0 0 24 24" width="${z}" height="${z}" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" ${x||''}><path d="${d}"/></svg>`;
 const ai=id=>sv_(IA[id],26,'style="float:left;margin:2px 10px 0 0"');
